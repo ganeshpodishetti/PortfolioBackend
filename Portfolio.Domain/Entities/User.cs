@@ -1,18 +1,17 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
 namespace Portfolio.Domain.Entities;
 
 public class User : IdentityUser
 {
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
-    public string Password { get; set; } = null!;
-    public string Country { get; set; } = null!;
-    public string City { get; set; } = null!;
-    public string AboutMe { get; set; } = null!;
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; } 
+    public string? Password { get; set; } 
+    public string? Country { get; set; } 
+    public string? City { get; set; } 
+    public string? AboutMe { get; set; } 
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;
     
     // Navigation properties
     public virtual ICollection<UserSkill> Skills { get; set; } = new List<UserSkill>();

@@ -3,13 +3,13 @@ namespace Portfolio.Domain.Entities;
 public class Education
 {
     public string Id { get; set; }
-    public string SchoolName { get; set; } = null!;
-    public string Degree { get; set; } = null!;
-    public string FieldOfStudy { get; set; } = null!;
+    public string SchoolName { get; set; } 
+    public string Degree { get; set; } 
+    public string FieldOfStudy { get; set; } 
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
-    public string Description { get; set; } = null!;
-    public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
+    public string Description { get; set; } 
+    public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;
     
-    public User User { get; init; } = null!;
+    public User User { get; set; } 
 }

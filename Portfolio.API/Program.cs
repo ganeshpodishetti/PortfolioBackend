@@ -30,12 +30,18 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// app.UseAuthentication(); invoked by calling MapIdentityApi<User>
-// app.MapGroup("api/identity")
-//     .WithTags("Identity")
-//     .MapIdentityApi<User>();
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+//app.UseAuthentication(); invoked by calling MapIdentityApi<User>
+app.MapGroup("api/identity")
+    .WithTags("Identity")
+    .MapIdentityApi<User>();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
