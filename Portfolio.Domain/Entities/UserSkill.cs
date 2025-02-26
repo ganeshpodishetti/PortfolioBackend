@@ -7,6 +7,6 @@ public class UserSkill
     public string? Proficiency { get; set; }
     
     // Navigation properties
-    public Skill Skill { get; init; } = null!;
-    public User User { get; init; } = null!;
+    public Skill Skill { get; set; }
+    public User User { get; set; }
 }

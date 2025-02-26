@@ -6,8 +6,8 @@ public class SocialMedia
 {
     public string Id { get; set; }
     public SocialMediaName Name { get; set; }
-    public string Url { get; set; } = null!;
+    public string Url { get; set; } 
     public string? Icon { get; set; } 
     
-    public User User { get; init; } = null!;
+    public User User { get; set; } 
 }

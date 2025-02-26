@@ -1,6 +1,24 @@
 @Portfolio_HostAddress = http://localhost:5084
 
-GET {{Portfolio_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{Portfolio_HostAddress}}/register
+Content-Type: application/json
+
+{
+  "email": "user@test.com",
+  "password": "Password123!",
+  "FirstName": "John",
+  "LastName": "Doe",
+  "Country": "USA",
+  "City": "New York",
+  "AboutMe": "I am a software developer"
+}
 
 ###
+
+POST {{Portfolio_HostAddress}}/login
+Content-Type: application/json
+
+{
+  "email": "user@test.com",
+  "password": "Password123!"
+}

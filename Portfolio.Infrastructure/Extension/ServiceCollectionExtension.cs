@@ -13,9 +13,11 @@ public static class ServiceCollectionExtension
     {
         // Registering the PortfolioDbContext
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-        services.AddDbContext<PortfolioDbContext>(options => options.UseNpgsql(connectionString));
-        
-        // Registering the Identity Services
-        
+        services.AddDbContext<PortfolioDbContext>(options => options.UseNpgsql(connectionString)
+            .EnableSensitiveDataLogging());
+
+        services.AddIdentityApiEndpoints<User>()
+            .AddEntityFrameworkStores<PortfolioDbContext>();
+
     }
 }

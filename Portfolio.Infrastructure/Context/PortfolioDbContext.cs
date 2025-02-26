@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Domain.Entities;
 
 namespace Portfolio.Infrastructure.Context;
 
-internal class PortfolioDbContext(DbContextOptions<PortfolioDbContext> options) : IdentityDbContext<User>(options)
+internal class PortfolioDbContext(DbContextOptions<PortfolioDbContext> options) 
+    : IdentityDbContext<User>(options)
 {
        internal DbSet<Experience> Experiences { get; set; }
        internal DbSet<Skill> Skills { get; set; }
