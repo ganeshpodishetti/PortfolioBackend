@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using Portfolio.API.Handlers;
 using Portfolio.Domain.Entities;
 using WatchDog;
 using WatchDog.src.Enums;
@@ -9,6 +10,10 @@ public static class WebApplicationBuilderExtension
 {
     public static void AddPresentation(this WebApplicationBuilder builder)
     {
+        builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+        builder.Services.AddHttpContextAccessor();
+        
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowAll",
