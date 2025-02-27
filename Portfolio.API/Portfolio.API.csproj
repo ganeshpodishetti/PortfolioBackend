@@ -15,6 +15,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
         <PackageReference Include="Scalar.AspNetCore" Version="2.0.18" />
+        <PackageReference Include="WatchDog.NET" Version="1.4.12" />
     </ItemGroup>
 
     <ItemGroup>
