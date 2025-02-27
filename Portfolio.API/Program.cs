@@ -27,6 +27,9 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+// Exception Handler
+app.UseExceptionHandler(_ => { });
+
 // WatchDog middleware
 app.UseWatchDogExceptionLogger();
 app.UseWatchDog(opt =>
