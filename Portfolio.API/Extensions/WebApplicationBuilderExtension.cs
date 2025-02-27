@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Portfolio.Domain.Entities;
+using WatchDog;
+using WatchDog.src.Enums;
 
 namespace Portfolio.API.Extensions;
 
@@ -8,11 +9,6 @@ public static class WebApplicationBuilderExtension
 {
     public static void AddPresentation(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAuthentication();
-        builder.Services.AddAuthorization();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddControllers();
-        
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowAll",
@@ -27,12 +23,28 @@ public static class WebApplicationBuilderExtension
             {
                 document.Info = new OpenApiInfo
                 {
-                    Title = "Restaurants Catalog API",
+                    Title = "Portfolio API",
                     Version = "v1",
-                    Description = "Modern API for managing restaurant catalogs.",
+                    Description = "Modern API for Portfolio."
                 };
                 return Task.CompletedTask;
             });
         });
+
+        // Add WatchDog services
+        builder.Services.AddWatchDogServices(options =>
+        {
+            options.IsAutoClear = true;
+            options.ClearTimeSchedule = WatchDogAutoClearScheduleEnum.Weekly;
+        });
+        
+        // Watchdog logger
+        builder.Logging.AddWatchDogLogger();
+        
+        builder.Services.AddControllers();
+        builder.Services.AddAuthentication();
+        builder.Services.AddAuthorization();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddIdentityApiEndpoints<User>();
     }
 }

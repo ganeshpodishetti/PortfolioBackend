@@ -16,8 +16,8 @@ public static class ServiceCollectionExtension
         services.AddDbContext<PortfolioDbContext>(options => options.UseNpgsql(connectionString)
             .EnableSensitiveDataLogging());
 
-        services.AddIdentityApiEndpoints<User>()
+        // Registering the Identity Services
+        services.AddIdentityCore<User>()
             .AddEntityFrameworkStores<PortfolioDbContext>();
-
     }
 }

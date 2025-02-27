@@ -22,7 +22,7 @@ internal class PortfolioDbContext(DbContextOptions<PortfolioDbContext> options)
            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
            {
                var tableName = entityType.GetTableName();
-               if (tableName.StartsWith("AspNet"))
+               if (tableName!.StartsWith("AspNet"))
                {
                    entityType.SetTableName(tableName.Substring(6));
                }
