@@ -8,22 +8,20 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.2" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.0.1" />
         <PackageReference Include="Scalar.AspNetCore" Version="2.0.18" />
         <PackageReference Include="WatchDog.NET" Version="1.4.12" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Portfolio.Infrastructure\Portfolio.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Controllers\" />
     </ItemGroup>
 
 </Project>
