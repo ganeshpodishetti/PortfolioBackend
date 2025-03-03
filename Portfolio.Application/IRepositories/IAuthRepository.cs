@@ -6,5 +6,5 @@ namespace Portfolio.Application.IRepositories;
 public interface IAuthRepository
 {
     Task<RegisterResponseDto> CreateUserAsync(RegisterRequestDto request);
-    Task<LoginResponseDto> UpdateUserAsync(User user, string jwtToken, DateTime jwtExpiryDate);
+    Task<LoginResponseDto> UpdateUserAsync(User user);
 }

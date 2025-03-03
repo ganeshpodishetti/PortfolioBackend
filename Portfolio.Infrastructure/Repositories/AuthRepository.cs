@@ -1,6 +1,9 @@
+using System.Security.Cryptography;
+using System.Text;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Portfolio.Application.DTOs;
+using Portfolio.Application.Interfaces;
 using Portfolio.Application.IRepositories;
 using Portfolio.Domain.Entities;
 using Portfolio.Domain.Exceptions;
@@ -8,6 +11,7 @@ using Portfolio.Domain.Exceptions;
 namespace Portfolio.Infrastructure.Repositories;
 
 internal class AuthRepository(UserManager<User> userManager,
+    IJwtTokenService jwtTokenService,
     IMapper mapper) : IAuthRepository
 {
     // register a new user
@@ -26,14 +30,23 @@ internal class AuthRepository(UserManager<User> userManager,
             throw new RegistrationFailedException(result.Errors.Select(err => err.Description));
         }
         // _logger.LogInformation("User created successfully");
-        //jwtTokenService.GenerateJwtToken(user);
+        await jwtTokenService.GenerateJwtToken(newUser);
         newUser.CreatedAt = DateTime.UtcNow;
         return mapper.Map<RegisterResponseDto>(newUser);
     }
 
     // update the user with the new JWT token and expiry date
-    public async Task<LoginResponseDto> UpdateUserAsync(User user, string jwtToken, DateTime jwtExpiryDate)
+    public async Task<LoginResponseDto> UpdateUserAsync(User user)
     {
+        var jwtToken = await jwtTokenService.GenerateJwtToken(user);
+        var refreshToken = jwtTokenService.GenerateRefreshToken();
+
+        // Hash the refresh token and store it in the database or override the existing refresh token
+        //var refreshTokenHash = SHA256.HashData(Encoding.UTF8.GetBytes(refreshToken));
+        //user.RefreshToken = Convert.ToBase64String(refreshTokenHash);
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpiresAtUtc = DateTime.UtcNow.AddDays(2);
+        
         var result = await userManager.UpdateAsync(user);
         if (!result.Succeeded)
         {
@@ -44,7 +57,7 @@ internal class AuthRepository(UserManager<User> userManager,
 
         var response = mapper.Map<User, LoginResponseDto>(user);
         response.AccessToken = jwtToken;
-        response.AccessTokenExpirationInUtc = jwtExpiryDate.ToString();
+        response.RefreshToken = refreshToken;
         return response;
     }
 }

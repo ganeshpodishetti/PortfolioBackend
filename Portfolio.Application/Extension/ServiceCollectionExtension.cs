@@ -12,7 +12,7 @@ public static class ServiceCollectionExtension
         // Registering AutoMapper
         services.AddAutoMapper(applicationAssembly);
         
-        services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IUserService, UserService>();
     }
 }

@@ -6,7 +6,7 @@ using Portfolio.Application.Interfaces;
 namespace Portfolio.API.Controllers;
 
 
-[Route("api/user")]
+[Route("api/auth")]
 [ApiController]
 [Authorize]
 public class AuthController(IAuthService authService) : Controller

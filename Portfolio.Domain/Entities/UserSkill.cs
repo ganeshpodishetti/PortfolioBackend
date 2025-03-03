@@ -2,8 +2,8 @@ namespace Portfolio.Domain.Entities;
 
 public class UserSkill
 {
-    public string Id { get; set; } 
-    public string SkillId { get; set; }
+    public Guid Id { get; set; } 
+    public Guid SkillId { get; set; }
     public string? Proficiency { get; set; }
     
     // Navigation properties

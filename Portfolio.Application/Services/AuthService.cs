@@ -8,8 +8,7 @@ using Portfolio.Domain.Exceptions;
 namespace Portfolio.Application.Services;
 
 public class AuthService(IAuthRepository authRepository,
-    UserManager<User> userManager,
-    IJwtTokenService jwtTokenService) : IAuthService
+    UserManager<User> userManager) : IAuthService
 {
     public async Task<RegisterResponseDto> RegisterAsync(RegisterRequestDto request)
     {
@@ -34,13 +33,7 @@ public class AuthService(IAuthRepository authRepository,
         {
             throw new LoginFailedException(loginRequestRequest.Email);
         }
-
-        var (jwtToken, expirationDateInUtc) = jwtTokenService.GenerateJwtToken(existingUser);
-        var refreshTokenValue = jwtTokenService.GenerateRefreshToken();
-        var refreshTokenExpirationDateInUtc = DateTime.UtcNow.AddDays(7);
         
-        existingUser.RefreshToken = refreshTokenValue;
-        existingUser.RefreshTokenExpiresAtUtc = refreshTokenExpirationDateInUtc;
-        return await authRepository.UpdateUserAsync(existingUser, jwtToken, expirationDateInUtc);
+        return await authRepository.UpdateUserAsync(existingUser);
     }
 }
