@@ -4,7 +4,6 @@ public record LoginResponseDto
 {
     public required string Email { get; init; }
     public string? AccessToken { get; set; }
-    public string? AccessTokenExpirationInUtc { get; set; }
-    public string? RefreshToken { get; init; }
+    public string? RefreshToken { get; set; }
     public string? RefreshTokenExpiresAtUtc { get; init; }
 }

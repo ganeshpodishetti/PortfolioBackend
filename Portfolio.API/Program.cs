@@ -1,6 +1,5 @@
 using Portfolio.API.Extensions;
 using Portfolio.Application.Extension;
-using Portfolio.Domain.Entities;
 using Portfolio.Infrastructure.Extension;
 using Scalar.AspNetCore;
 using WatchDog;
@@ -10,16 +9,17 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
-    builder.Services.ConfigureJwtAuth(builder.Configuration);
-    builder.Services.AddInfrastructure(builder.Configuration);
     builder.AddPresentation();
+    builder.Services.AddInfrastructure(builder.Configuration);
     builder.Services.AddApplication();
+    builder.Services.AddJwtAuthentication(builder.Configuration);
 
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
+        app.UseDeveloperExceptionPage();
         app.MapOpenApi();
         app.MapScalarApiReference(options =>
         {
@@ -29,7 +29,10 @@ try
                 .WithDarkMode(true)
                 .WithSidebar(true)
                 .WithDefaultHttpClient(ScalarTarget.Http, ScalarClient.Http11)
-                .WithPreferredScheme("Bearer");
+                .Authentication = new ScalarAuthenticationOptions()
+                {
+                    PreferredSecurityScheme = "Bearer",
+                };
         });
     }
 
@@ -44,21 +47,13 @@ try
         opt.WatchPagePassword = builder.Configuration["WatchDogPassword"];
     });
 
-    app.UseHttpsRedirection();
-
-    app.UseRouting();
-
     app.UseCors("AllowAll");
 
-    //app.UseAuthentication(); invoked by calling MapIdentityApi<User>
-    // app.MapGroup("api/user")
-    //     .WithTags("User")
-    //     .MapIdentityApi<User>();
-
-    app.UseAuthentication();
-
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+    app.UseRouting();
+    app.UseAuthentication(); // Must come before UseAuthorization
     app.UseAuthorization();
-
     app.MapControllers();
 
     app.Run();

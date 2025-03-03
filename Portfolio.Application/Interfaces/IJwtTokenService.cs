@@ -4,6 +4,6 @@ namespace Portfolio.Application.Interfaces;
 
 public interface IJwtTokenService
 {
-    (string jwtToken, DateTime expiresAtUtc) GenerateJwtToken(User user);
+    Task<string> GenerateJwtToken(User user);
     string GenerateRefreshToken();
 }

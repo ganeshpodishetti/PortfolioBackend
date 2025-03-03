@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Portfolio.Domain.Entities;
 
-public class User : IdentityUser
+public class User : IdentityUser<Guid>
 {
-    public string FirstName { get; set; } 
-    public string LastName { get; set; }
+    public required string FirstName { get; set; } 
+    public required string LastName { get; set; }
     public string? Country { get; set; } 
     public string? City { get; set; } 
     public string? AboutMe { get; set; } 

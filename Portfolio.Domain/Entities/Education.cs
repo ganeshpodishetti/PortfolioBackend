@@ -2,7 +2,7 @@ namespace Portfolio.Domain.Entities;
 
 public class Education
 {
-    public string Id { get; set; }
+    public Guid Id { get; set; }
     public string SchoolName { get; set; } 
     public string Degree { get; set; } 
     public string FieldOfStudy { get; set; } 

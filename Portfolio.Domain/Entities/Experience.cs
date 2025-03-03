@@ -4,7 +4,7 @@ namespace Portfolio.Domain.Entities;
 
 public class Experience
 {
-    public string Id { get; set; }
+    public Guid Id { get; set; }
     public string CompanyName { get; set; } 
     public string Position { get; set; } 
     public ExperienceType Type { get; set; }

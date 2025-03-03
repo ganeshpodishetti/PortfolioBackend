@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Portfolio.Domain.Entities;
@@ -5,7 +6,7 @@ using Portfolio.Domain.Entities;
 namespace Portfolio.Infrastructure.Context;
 
 internal class PortfolioDbContext(DbContextOptions<PortfolioDbContext> options) 
-    : IdentityDbContext<User>(options)
+    : IdentityDbContext<User, IdentityRole<Guid>, Guid>(options)
 {
        internal DbSet<Experience> Experiences { get; set; }
        internal DbSet<Skill> Skills { get; set; }
@@ -24,7 +25,7 @@ internal class PortfolioDbContext(DbContextOptions<PortfolioDbContext> options)
                var tableName = entityType.GetTableName();
                if (tableName!.StartsWith("AspNet"))
                {
-                   entityType.SetTableName(tableName.Substring(6));
+                   entityType.SetTableName(tableName[6..]);
                }
            }
            
